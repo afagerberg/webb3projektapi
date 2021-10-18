@@ -8,10 +8,11 @@ if($db->connect_errno > 0){
     die('fel vid anslutning [' . $db->connect_error . ']');
 }
 
-/*SQL fråga skapa tabell kurser
+//SQL fråga skapa tabell kurser
 $sql = "DROP TABLE IF EXISTS completedstudies;
     CREATE TABLE completedstudies(
-    courseid VARCHAR(255) PRIMARY KEY,
+    eduid INT(11) PRIMARY KEY AUTO_INCREMENT,
+    courseid VARCHAR(255) NOT NULL,
     cname VARCHAR(255) NOT NULL,
     program VARCHAR(255) NOT NULL,
     eduplace VARCHAR(255) NOT NULL,
@@ -22,8 +23,8 @@ $sql = "DROP TABLE IF EXISTS completedstudies;
 $sql .= "
     INSERT INTO completedstudies(courseid, cname, program, eduplace, startdate, enddate) VALUES('DT057G', 'Webbutveckling I', 'Webbutveckling', 'Mittuniversitetet','2020-08-31','2020-11-02');
     INSERT INTO completedstudies(courseid, cname, program, eduplace, startdate, enddate) VALUES('DT084G', 'Introduktion till programmering i JavaScript', 'Webbutveckling', 'Mittuniversitetet','2020-08-30','2020-11-02');
-";
-*/
+";/*
+
 $sql = "DROP TABLE IF EXISTS workexperience;
     CREATE TABLE workexperience(
     jobid INT(11) PRIMARY KEY AUTO_INCREMENT,
@@ -37,7 +38,7 @@ $sql .= "
     INSERT INTO workexperience(title, workplace, startdate, enddate) VALUES('Praktikant grafisk designer', 'Frosting Kommunikationsbyrå', '2019-02-20', '2019-04-20');
     INSERT INTO workexperience(title, workplace, startdate, enddate) VALUES('Trafikinformatör timanställning', 'Trafikverket', '2016-06-13', '2020-08-16');
 ";
-/*
+
 $sql = "DROP TABLE IF EXISTS webpages;
     CREATE TABLE webpages(
     id INT(11) PRIMARY KEY AUTO_INCREMENT,

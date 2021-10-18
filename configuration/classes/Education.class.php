@@ -70,13 +70,13 @@ class Education {
     }
 
     /**
-     * get course by id
-     * @param string $courseid
+     * get education by id
+     * @param int $eduid
      * @return array
      */
-    public function getEducationByCourseid(string $courseid) : array {
+    public function getEducationByid(int $eduid) : array {
         
-        $sql = "SELECT * FROM completedstudies WHERE courseid=$courseid";
+        $sql = "SELECT * FROM completedstudies WHERE eduid=$eduid";
         $result = $this->db->query($sql);
 
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -93,7 +93,7 @@ class Education {
      * @param string $enddate
      * return boolean
      */
-    function updateEducation(string $courseid, string $cname, string $program, string $eduplace, string $startdate, string $enddate) : bool {
+    function updateEducation(int $eduid, string $courseid, string $cname, string $program, string $eduplace, string $startdate, string $enddate) : bool {
 
         $this->courseid = $courseid;
         $this->cname = $cname;
@@ -101,9 +101,10 @@ class Education {
         $this->eduplace = $eduplace;
         $this->startdate = $startdate;
         $this->enddate = $enddate;
+        $eduid= intval($eduid);
 
-            $stmt = $this->db->prepare("UPDATE completedstudies SET cname=?, program=?, eduplace=?, startdate=?, enddate=? WHERE courseid=$courseid;");
-            $stmt->bind_param("sssss", $this->cname, $this->program, $this->eduplace, $this->startdate, $this->enddate);
+            $stmt = $this->db->prepare("UPDATE completedstudies SET courseid=?, cname=?, program=?, eduplace=?, startdate=?, enddate=? WHERE eduid=$eduid;");
+            $stmt->bind_param("ssssss", $this->courseid, $this->cname, $this->program, $this->eduplace, $this->startdate, $this->enddate);
 
             // execute statement
             if ($stmt->execute()) {
@@ -122,9 +123,11 @@ class Education {
      * @param string $courseid
      * return boolean
      */
-    public function deleteEducation(string $courseid) :bool {
+    public function deleteEducation(int $eduid) :bool {
 
-        $sql = "DELETE FROM completedstudies WHERE courseid=$courseid;";
+        $eduid = intval($eduid);
+
+        $sql = "DELETE FROM completedstudies WHERE eduid=$eduid;";
         $result = $this->db->query($sql);
 
         return $result;

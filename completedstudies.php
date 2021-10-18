@@ -20,8 +20,8 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 $method = $_SERVER['REQUEST_METHOD'];
 
 //Om en parameter av id finns i urlen lagras det i en variabel
-if(isset($_GET['courseid'])) {
-    $courseid = $_GET['courseid'];
+if(isset($_GET['eduid'])) {
+    $id = $_GET['eduid'];
 }
 
 $database = new Database();
@@ -69,21 +69,21 @@ switch($method) {
         break;
     case 'PUT': //Uppdatera
         //Om inget id är med skickat, skicka felmeddelande
-        if(!isset($courseid)) {
+        if(!isset($id)) {
             http_response_code(400); //Bad Request - The server could not understand the request due to invalid syntax.
             $response = array("message" => "No course id is sent");
         //Om id är skickad   
         } else {
             $data = json_decode(file_get_contents("php://input"));
 
-            if($education->setCoursename($data->cname) == false || $education->setProgram($data->program) == false || $education->setEduPlace($data->eduplace) == false || $education->setStartDate($data->startdate) == false || $education->setEndDate($data->enddate) == false){
+            if($education->setCourseid($data->courseid) == false || $education->setCoursename($data->cname) == false || $education->setProgram($data->program) == false || $education->setEduPlace($data->eduplace) == false || $education->setStartDate($data->startdate) == false || $education->setEndDate($data->enddate) == false){
             
-                $response = array("message" => "Enter coursename, a program, school, start and end date!");
+                $response = array("message" => "Enter a coursecode, coursename, a program, school, start and end date!");
             
             } else{
-                if($education->updateEducation($courseid, $data->cname, $data->program, $data->eduplace, $data->startdate, $data->enddate)){
+                if($education->updateEducation($id, $data->courseid, $data->cname, $data->program, $data->eduplace, $data->startdate, $data->enddate)){
                     http_response_code(200);
-                    $response = array("message" => "utbildning med kurskod=$courseid is updated");
+                    $response = array("message" => "utbildning med kurskod=$id is updated");
                 }else{
                     http_response_code(503);
                     $response = array("message" =>"utbildningen uppdaterades inte");
@@ -94,13 +94,13 @@ switch($method) {
         }
         break;
     case 'DELETE': //radera
-        if(!isset($courseid)) {
+        if(!isset($id)) {
             http_response_code(400);
             $response = array("message" => "No id is sent");  
         } else {
             // Kör för att radera en rad i tabellen
-            if($education->deleteEducation($courseid)){
-                $response = array("message" => "utbildningen med kurskoden=$courseid är raderad");
+            if($education->deleteEducation($id)){
+                $response = array("message" => "utbildningen med kurskoden=$id är raderad");
                 http_response_code(200);
             }
             else {

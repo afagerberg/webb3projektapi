@@ -84,7 +84,6 @@ class Webpage {
         $this->title = $title;
         $this->pagedescription = $pagedescription;
         $id = intval($id);
-;
 
         $stmt = $this->db->prepare("UPDATE webpages SET pageurl=?, title=?, pagedescription=? WHERE id=$id;");
         $stmt->bind_param("sss",$this->pageurl, $this->title, $this->pagedescription);
