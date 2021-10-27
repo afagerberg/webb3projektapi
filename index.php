@@ -1,8 +1,8 @@
 <?php
-//Moment 5 DT173G Alice fagerberg
+/*Moment 5 DT173G Alice fagerberg
 include_once("configuration/config.php");
 include_once ("configuration/database.php");
-/*Headers med inställningar för din REST webbtjänst*/
+Headers med inställningar för din REST webbtjänst
 
 //Gör att webbtjänsten går att komma åt från alla domäner (asterisk * betyder alla)
 header('Access-Control-Allow-Origin: *');
@@ -106,10 +106,33 @@ switch($method) {
         
 }
 
-//Skickar svar tillbaka till avsändaren
+
 $finaldata = json_encode($response);
 
 echo $finaldata;
 
 $db = $database->close();
+*/
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API portfolio</title>
+</head>
+<body>
+    <h1>REST API Portfolio</h1>
+    <h2>API - metoder</h2>
+    <ul>
+        <li><a href="completedstudies.php">completedstudies</a></li>
+        <li><a href="workexperience.php">workexperience</a></li>
+        <li><a href="webpages.php">webpages</a></li>
+    </ul>   
+    
+</body>
+</html>
+
+
 

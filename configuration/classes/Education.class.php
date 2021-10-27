@@ -4,7 +4,7 @@ class Education {
 
     //variabler
     private $db;
-    private $courseid;
+    private $coursecode;
     private $cname;
     private $program;
     private $eduplace;
@@ -24,16 +24,16 @@ class Education {
 
     /**
      * Add course
-     * @param string $courseid
+     * @param string $coursecode
      * @param string $cname
      * @param string $program
      * @param string $eduplace
      * @param string $startdate
      * @param string $enddate
      */
-    public function addEducation(string $courseid, string $cname, string $program, string $eduplace, string $startdate, string $enddate) :bool{
+    public function addEducation(string $coursecode, string $cname, string $program, string $eduplace, string $startdate, string $enddate) :bool{
 
-        $this->courseid = $courseid;
+        $this->coursecode = $coursecode;
         $this->cname = $cname;
         $this->program = $program;
         $this->eduplace = $eduplace;
@@ -41,8 +41,8 @@ class Education {
         $this->enddate = $enddate;
 
             // prepeare statements
-            $stmt = $this->db->prepare("INSERT INTO completedstudies(courseid, cname, program, eduplace, startdate, enddate) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssss", $this->courseid, $this->cname, $this->program, $this->eduplace, $this->startdate, $this->enddate);
+            $stmt = $this->db->prepare("INSERT INTO completedstudies(coursecode, cname, program, eduplace, startdate, enddate) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssss", $this->coursecode, $this->cname, $this->program, $this->eduplace, $this->startdate, $this->enddate);
 
             // execute statement
             if ($stmt->execute()) {
@@ -85,7 +85,7 @@ class Education {
 
     /**
      * update education 
-     * @param string $courseid
+     * @param string $coursecode
      * @param string $cname
      * @param string $program
      * @param string $eduplace
@@ -93,9 +93,9 @@ class Education {
      * @param string $enddate
      * return boolean
      */
-    function updateEducation(int $eduid, string $courseid, string $cname, string $program, string $eduplace, string $startdate, string $enddate) : bool {
+    function updateEducation(int $eduid, string $coursecode, string $cname, string $program, string $eduplace, string $startdate, string $enddate) : bool {
 
-        $this->courseid = $courseid;
+        $this->coursecode = $coursecode;
         $this->cname = $cname;
         $this->program = $program;
         $this->eduplace = $eduplace;
@@ -103,8 +103,8 @@ class Education {
         $this->enddate = $enddate;
         $eduid= intval($eduid);
 
-            $stmt = $this->db->prepare("UPDATE completedstudies SET courseid=?, cname=?, program=?, eduplace=?, startdate=?, enddate=? WHERE eduid=$eduid;");
-            $stmt->bind_param("ssssss", $this->courseid, $this->cname, $this->program, $this->eduplace, $this->startdate, $this->enddate);
+            $stmt = $this->db->prepare("UPDATE completedstudies SET coursecode=?, cname=?, program=?, eduplace=?, startdate=?, enddate=? WHERE eduid=$eduid;");
+            $stmt->bind_param("ssssss", $this->coursecode, $this->cname, $this->program, $this->eduplace, $this->startdate, $this->enddate);
 
             // execute statement
             if ($stmt->execute()) {
@@ -136,9 +136,9 @@ class Education {
     // setters för all properties
 
     //villkor för kurskod
-    public function setCourseid(string $courseid) : bool {
-        if(strlen($courseid) > 4){
-            $this->courseid = $this->db->real_escape_string($courseid);
+    public function setCourseid(string $coursecode) : bool {
+        if(strlen($coursecode) > 4){
+            $this->coursecode = $this->db->real_escape_string($coursecode);
 
             return true;
 
@@ -212,8 +212,8 @@ class Education {
     }
 
     //getters - hämtar vardera property
-    public function getCourseid() : string {
-        $this->courseid = $courseid;
+    public function getCoursecode() : string {
+        $this->coursecode = $coursecode;
     }
 
     public function getCoursename() : string {

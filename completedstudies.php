@@ -48,13 +48,13 @@ switch($method) {
         //Läser in JSON-data skickad med anropet och omvandlar till ett objekt.
         $data = json_decode(file_get_contents("php://input"));
 
-        if($education->setCourseid($data->courseid) == false || $education->setCoursename($data->cname) == false || $education->setProgram($data->program) == false || $education->setEduPlace($data->eduplace) == false || $education->setStartDate($data->startdate) == false || $education->setEndDate($data->enddate) == false){
-            
+        if($education->setCourseid($data->coursecode) == false || $education->setCoursename($data->cname) == false || $education->setProgram($data->program) == false || $education->setEduPlace($data->eduplace) == false || $education->setStartDate($data->startdate) == false || $education->setEndDate($data->enddate) == false){
+            http_response_code(400);
             $response = array("message" => "Enter coursename, a program, school, start and end date!");
-        
+            
         } else{
 
-            if($education->addEducation($data->courseid, $data->cname, $data->program, $data->eduplace, $data->startdate, $data->enddate)){
+            if($education->addEducation($data->coursecode, $data->cname, $data->program, $data->eduplace, $data->startdate, $data->enddate)){
 
                 $response = array("message" => "Created");
                 http_response_code(201); //Created
@@ -76,12 +76,12 @@ switch($method) {
         } else {
             $data = json_decode(file_get_contents("php://input"));
 
-            if($education->setCourseid($data->courseid) == false || $education->setCoursename($data->cname) == false || $education->setProgram($data->program) == false || $education->setEduPlace($data->eduplace) == false || $education->setStartDate($data->startdate) == false || $education->setEndDate($data->enddate) == false){
+            if($education->setCourseid($data->coursecode) == false || $education->setCoursename($data->cname) == false || $education->setProgram($data->program) == false || $education->setEduPlace($data->eduplace) == false || $education->setStartDate($data->startdate) == false || $education->setEndDate($data->enddate) == false){
             
                 $response = array("message" => "Enter a coursecode, coursename, a program, school, start and end date!");
             
             } else{
-                if($education->updateEducation($id, $data->courseid, $data->cname, $data->program, $data->eduplace, $data->startdate, $data->enddate)){
+                if($education->updateEducation($id, $data->coursecode, $data->cname, $data->program, $data->eduplace, $data->startdate, $data->enddate)){
                     http_response_code(200);
                     $response = array("message" => "utbildning med kurskod=$id is updated");
                 }else{

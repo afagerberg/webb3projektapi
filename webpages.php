@@ -77,8 +77,6 @@ switch($method) {
 
             if($webpage->setPageurl($data->pageurl) == false || $webpage->setTitle($data->title) == false || $webpage->setDescription($data->pagedescription) == false){
                 $response = array("message" => "Enter pageurl, a title, and a description!");
-
-                http_response_code(400); //user error
                 
             }else{
                 if($webpage->updateWebpage($id, $data->pageurl, $data->title, $data->pagedescription)){
