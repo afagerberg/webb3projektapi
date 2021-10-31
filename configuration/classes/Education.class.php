@@ -2,7 +2,7 @@
 //DT173G Projekt Alice Fagerberg
 class Education {
 
-    //variabler
+    //properties
     private $db;
     private $coursecode;
     private $cname;
@@ -23,7 +23,7 @@ class Education {
     }
 
     /**
-     * Add course
+     * Add education
      * @param string $coursecode
      * @param string $cname
      * @param string $program
@@ -40,7 +40,7 @@ class Education {
         $this->startdate = $startdate;
         $this->enddate = $enddate;
 
-            // prepeare statements
+            // prepare statements
             $stmt = $this->db->prepare("INSERT INTO completedstudies(coursecode, cname, program, eduplace, startdate, enddate) VALUES (?, ?, ?, ?, ?, ?)");
             $stmt->bind_param("ssssss", $this->coursecode, $this->cname, $this->program, $this->eduplace, $this->startdate, $this->enddate);
 
@@ -103,6 +103,7 @@ class Education {
         $this->enddate = $enddate;
         $eduid= intval($eduid);
 
+            //prepare statements
             $stmt = $this->db->prepare("UPDATE completedstudies SET coursecode=?, cname=?, program=?, eduplace=?, startdate=?, enddate=? WHERE eduid=$eduid;");
             $stmt->bind_param("ssssss", $this->coursecode, $this->cname, $this->program, $this->eduplace, $this->startdate, $this->enddate);
 
@@ -119,8 +120,8 @@ class Education {
     }
 
     /**
-     * delete an education by course id
-     * @param string $courseid
+     * delete an education by id
+     * @param string $eduid
      * return boolean
      */
     public function deleteEducation(int $eduid) :bool {
@@ -133,7 +134,7 @@ class Education {
         return $result;
     }
 
-    // setters för all properties
+    // setters för alla properties
 
     //villkor för kurskod
     public function setCourseid(string $coursecode) : bool {

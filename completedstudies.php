@@ -1,5 +1,5 @@
 <?php
-//Moment 5 DT173G Alice fagerberg
+//Projekt REST DT173G Alice Fagerberg
 include_once("configuration/config.php");
 include_once ("configuration/database.php");
 /*Headers med inställningar för din REST webbtjänst*/
@@ -48,12 +48,13 @@ switch($method) {
         //Läser in JSON-data skickad med anropet och omvandlar till ett objekt.
         $data = json_decode(file_get_contents("php://input"));
 
+        //Gör en koll efter rätt format
         if($education->setCourseid($data->coursecode) == false || $education->setCoursename($data->cname) == false || $education->setProgram($data->program) == false || $education->setEduPlace($data->eduplace) == false || $education->setStartDate($data->startdate) == false || $education->setEndDate($data->enddate) == false){
             http_response_code(400);
             $response = array("message" => "Enter coursename, a program, school, start and end date!");
             
         } else{
-
+            //Formatet är rätt - Om det läggas till
             if($education->addEducation($data->coursecode, $data->cname, $data->program, $data->eduplace, $data->startdate, $data->enddate)){
 
                 $response = array("message" => "Created");
@@ -71,7 +72,7 @@ switch($method) {
         //Om inget id är med skickat, skicka felmeddelande
         if(!isset($id)) {
             http_response_code(400); //Bad Request - The server could not understand the request due to invalid syntax.
-            $response = array("message" => "No course id is sent");
+            $response = array("message" => "No id is sent");
         //Om id är skickad   
         } else {
             $data = json_decode(file_get_contents("php://input"));
@@ -83,10 +84,10 @@ switch($method) {
             } else{
                 if($education->updateEducation($id, $data->coursecode, $data->cname, $data->program, $data->eduplace, $data->startdate, $data->enddate)){
                     http_response_code(200);
-                    $response = array("message" => "utbildning med kurskod=$id is updated");
+                    $response = array("message" => "education with id=$id is updated");
                 }else{
                     http_response_code(503);
-                    $response = array("message" =>"utbildningen uppdaterades inte");
+                    $response = array("message" =>"could not update, something went wrong");
                 }
             }    
 
@@ -100,12 +101,12 @@ switch($method) {
         } else {
             // Kör för att radera en rad i tabellen
             if($education->deleteEducation($id)){
-                $response = array("message" => "utbildningen med kurskoden=$id är raderad");
+                $response = array("message" => "education with id=$id is deleted");
                 http_response_code(200);
             }
             else {
                 http_response_code(503); //server error
-                $response = array("message" => "det gick inte att radera, något gick fel");
+                $response = array("message" => "could not delete, something went wrong");
             }    
             
         }

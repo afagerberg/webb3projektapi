@@ -1,5 +1,5 @@
 <?php
-//Moment 5 DT173G Alice fagerberg
+//Projekt REST DT173G Alice Fagerberg
 include_once("configuration/config.php");
 include_once ("configuration/database.php");
 /*Headers med inställningar för din REST webbtjänst*/
@@ -81,10 +81,10 @@ switch($method) {
             }else{
                 if($webpage->updateWebpage($id, $data->pageurl, $data->title, $data->pagedescription)){
                     http_response_code(200);
-                    $response = array("message" => "webbsida med id=$id is updated");
+                    $response = array("message" => "webpage with id=$id is updated");
                 }else{
                     http_response_code(503);
-                    $response = array("message" =>"Kurs uppdaterades inte");
+                    $response = array("message" => "webpage did not update, something went wrong");
                 }
             }
 
@@ -98,12 +98,12 @@ switch($method) {
         } else {
             // Kör för att radera en rad i tabellen
             if($webpage->deleteWebpage($id)){
-                $response = array("message" => "Kursen med id=$id är raderad");
+                $response = array("message" => "webpage with id=$id is deleted");
                 http_response_code(200);
             }
             else {
                 http_response_code(503); //server error
-                $response = array("message" => "det gick inte att radera, något gick fel");
+                $response = array("message" => "could not delete, something went wrong");
             }    
             
         }

@@ -1,5 +1,5 @@
 <?php
-//Moment 5 DT173G Alice fagerberg
+//Projekt REST DT173G Alice Fagerberg
 include_once("configuration/config.php");
 include_once ("configuration/database.php");
 /*Headers med inställningar för din REST webbtjänst*/
@@ -83,10 +83,10 @@ switch($method) {
             }else{
                 if($job->updateJob($id, $data->title, $data->workplace, $data->startdate, $data->enddate)){
                     http_response_code(200);
-                    $response = array("message" => "Arbetserfarenhet med id=$id är uppdaterad");
+                    $response = array("message" => "workexperience with id=$id is updated");
                 }else{
                     http_response_code(503);
-                    $response = array("message" =>"Arbetserfarenheten uppdaterades inte");
+                    $response = array("message" =>"workexperience did not update");
                 }
             }
 
@@ -100,12 +100,12 @@ switch($method) {
         } else {
             // Kör för att radera en rad i tabellen
             if($job->deleteJob($id)){
-                $response = array("message" => "arb med id=$id är raderad");
+                $response = array("message" => "workexperience with id=$id is deleted");
                 http_response_code(200);
             }
             else {
                 http_response_code(503); //server error
-                $response = array("message" => "det gick inte att radera, något gick fel");
+                $response = array("message" => "Could not delete, something went wrong");
             }    
             
         }

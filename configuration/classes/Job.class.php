@@ -2,7 +2,7 @@
 //DT173G Projekt Alice Fagerberg
 class Job {
 
-    //variabler
+    //properties
     private $db;
     private $title;
     private $workplace;
@@ -51,23 +51,23 @@ class Job {
     }
 
     /**
-     * Get all educations
+     * Get all jobs
      * @return array
      */
     public function getAllJobs() : array {
         $sql = "SELECT * FROM workexperience ORDER BY startdate;";
         $result = $this->db->query($sql);
 
-        // retirn associative array
+        // return associative array
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     /**
-     * get course by id
+     * get job by id
      * @param int $id
      * @return array
      */
-    public function getEducationByCourseid(int $id) : array {
+    public function getJobByid(int $id) : array {
 
         $id = intval($id);
         
@@ -94,6 +94,7 @@ class Job {
         $this->enddate = $enddate;
         $id = intval($id);
 
+        //prepare statements
         $stmt = $this->db->prepare("UPDATE workexperience SET title=?, workplace=?, startdate=?, enddate=? WHERE jobid=$id;");
         $stmt->bind_param("ssss", $this->title, $this->workplace, $this->startdate, $this->enddate);
 
@@ -126,7 +127,7 @@ class Job {
 
     // setters för alla properties
 
-    //villkor för kurskod
+    //villkor för titel
     public function setTitle(string $title) : bool {
         if(strlen($title) > 2){
             $this->title = $this->db->real_escape_string($title);
@@ -138,7 +139,7 @@ class Job {
         }
     }
 
-    //villkor för kursnamn
+    //villkor för arbetsplats
     public function setWorkplace(string $workplace) : bool {
         if(strlen($workplace) > 2){
             $this->workplace = $this->db->real_escape_string($workplace);

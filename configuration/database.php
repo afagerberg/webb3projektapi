@@ -2,10 +2,10 @@
 class Database{
   
     // specify your own database credentials
-    private $host = "localhost";
-    private $db_name = "webb3projekt";
-    private $username = "webb3projekt";
-    private $password = "password";
+    private $host = "afagerberg.se.mysql";
+    private $db_name = "afagerberg_sewebb3portfolio";
+    private $username = "afagerberg_sewebb3portfolio";
+    private $password = "portfoliodt173g";
     public $conn;
   
     // get the database connection

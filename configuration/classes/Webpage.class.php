@@ -20,11 +20,10 @@ class Webpage {
     }
 
     /**
-     * Add course
-     * @param string $coursecode
-     * @param string $cname
-     * @param string $progression
-     * @param string $courseplan
+     * Add webpage
+     * @param string $pageurl
+     * @param string $title
+     * @param string $pagedescription
      */
     public function addWebpage(string $pageurl, string $title, string $pagedescription) :bool{
         
@@ -50,7 +49,7 @@ class Webpage {
     }
 
     /**
-     * Get all courses
+     * Get all webpages
      * @return array
      */
     public function getAllWebpages() : array {
@@ -62,7 +61,7 @@ class Webpage {
     }
 
     /**
-     * get course by id
+     * get webpage by id
      * @param int $id
      * @return array
      */
@@ -76,7 +75,12 @@ class Webpage {
 
     }
 
-    /*blaha
+    /**
+     * update webpage 
+     * @param string $pageurl
+     * @param string $title
+     * @param string $pagedescription
+     * return boolean
      */
     function updateWebpage(int $id, string $pageurl, string $title, string $pagedescription) : bool {
 
@@ -85,6 +89,7 @@ class Webpage {
         $this->pagedescription = $pagedescription;
         $id = intval($id);
 
+        //prepare statements
         $stmt = $this->db->prepare("UPDATE webpages SET pageurl=?, title=?, pagedescription=? WHERE id=$id;");
         $stmt->bind_param("sss",$this->pageurl, $this->title, $this->pagedescription);
 
@@ -101,7 +106,7 @@ class Webpage {
     }
 
     /**
-     * delete a course by id
+     * delete a webpage by id
      * @param int $id
      * return boolean
      */
@@ -114,7 +119,7 @@ class Webpage {
         return $result;
     }
 
-
+    //setters pageurl, title, pagedescription
     function setPageurl(string $pageurl) : bool {
         if(filter_var($pageurl, FILTER_VALIDATE_URL)) {
             $this->pageurl = $this->db->real_escape_string($pageurl);// säkra strängen
@@ -141,7 +146,7 @@ class Webpage {
             return false;
         }
     }
-
+    //getters vardera proprty
     function getPageurl() :string {
         return $this->pageurl;
     }

@@ -5,8 +5,8 @@ spl_autoload_register(function ($class_name) {
 });
 
     /* DB settings */
-    define("DBHOST", "localhost");
-    define("DBUSER", "webb3projekt");
-    define("DBPASS", "password");
-    define("DBDATABASE", "webb3projekt");
+    define("DBHOST", "afagerberg.se.mysql");
+    define("DBUSER", "afagerberg_sewebb3portfolio");
+    define("DBPASS", "portfoliodt173g");
+    define("DBDATABASE", "afagerberg_sewebb3portfolio");
 ?>
