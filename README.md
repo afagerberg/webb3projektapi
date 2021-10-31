@@ -13,7 +13,7 @@ Här är REST-webbtjänst med data för olika portfolioinnehåll.
 https://dt173g_portfolio_restapi.afagerberg.se/
 
 ## Klona repository
-git clone https://github.com/afagerberg/webb3projektapi.git 
+`git clone https://github.com/afagerberg/webb3projektapi.git` 
 
 Ha det fint
 // Alice
